@@ -1,0 +1,15 @@
+criar:
+
+npx create-react-app nomeDoApp
+
+para rodar entra na pasta do projeto e da um npm start
+
+package.json -> dependencias
+
+os arquivos manipuláveis ficam na pasta src
+
+no index.html -> tem uma configuração padrão, apenas
+
+reportWbVitals.js -> é para criação de um PWA com o react
+
+setupTest.js -> para configuração de testes

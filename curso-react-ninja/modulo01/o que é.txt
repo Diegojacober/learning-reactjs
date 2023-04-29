@@ -1,0 +1,35 @@
+O que é o React.js
+
+É uma biblioteca javascript para criar interface de usuários, não é um framework,
+uma biblioteca que pode ser utilizado sozinho ou com outros frameworks.
+
+Basicamente é o V (Views) do MVC
+
+Onde utilizar?
+
+Aplicações dinâmicas / interativas
+
+manipulação de DOM:
+
+- Webapps
+
+- Mobile apps
+
+- Sistema de admnistração de CMS
+
+onde NÃO devemos utilizar?
+
+Sistemas que só exibem conteúdo;
+
+- Websites institucionais;
+
+- Blogs
+
+Quais problemas resolve?
+
+- Modularização (separação de responsabilidades)
+
+- Componentização (Tudo que é feito com react é um componente)
+
+- Performance (manipulação de DOM, ele tem um DOM virtual, e altera o DOM virtual, depois faz um diff com um DOM real, e so atualiza o que realmente foi mudado)
+
