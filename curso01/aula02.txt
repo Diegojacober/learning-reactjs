@@ -1,0 +1,5 @@
+Componentes e props
+
+Porop -> é como se fosse um atributo, o que a gente pode passar para os componentes para ser exibido para o usuário
+
+stateless componente -> componente burro, que não tem ciclo de vida, estado, apenas exibe algo
