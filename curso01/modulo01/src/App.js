@@ -9,6 +9,8 @@
 //   )
 // }
 
+import { Component } from "react";
+
 // const Equipe = (props) => {
 //   return(
 //     <div>
@@ -58,38 +60,85 @@
 
 
 //Class component
-import React, { Component } from "react";
+// import React, { Component } from "react";
 
-class Equipe extends Component {
+// class Equipe extends Component {
+//   render() {
+//     return (
+//       <>
+//         <h2>Olá meu nome é {this.props.nome}, sou {this.props.cargo}</h2>
+//         <Social github={this.props.github}/>
+//       </>
+//     )
+//   }
+// }
+
+// class Social extends Component {
+//   render() {
+//     return (
+//       <>
+//         <ul>
+//           <li><a href={this.props.github} target="_blank">Github</a></li>
+//         </ul>
+//       </>
+//     )
+//   }
+// }
+
+// function App() {
+//   return (
+//     <div>
+//       <h1>Conheça nossa equipe</h1>
+//       <Equipe nome="Diego" cargo="Programador" idade="18" github="https://github.com/diegojacober" />
+//     </div>
+//   )
+// }
+
+
+// export default App
+
+
+//Props são estáticas não da para mudar ao decorrer sem atualizar, as states não
+class App extends Component{
+
+  constructor(props){
+    super(props)
+    this.state = {
+      nome: "eita",
+      contador: 0
+    }
+
+    this.aumentar = this.aumentar.bind(this)
+    this.diminuir = this.diminuir.bind(this)
+  }
+
+  aumentar(params) {
+    let state = this.state
+    state.contador ++
+    this.setState(state)
+  }
+
+  diminuir(params) {
+    let state = this.state
+    
+    if (state.contador == 0) {
+      alert('Não podemos diminuir')
+    } else {
+      state.contador --
+      this.setState(state)
+    }
+  }
+
   render() {
-    return (
-      <>
-        <h2>Olá meu nome é {this.props.nome}, sou {this.props.cargo}</h2>
-        <Social github={this.props.github}/>
-      </>
+    return(
+      <div>
+        <h3>{this.state.nome}</h3>
+        <div><button onClick={this.diminuir}>-</button> 
+         {this.state.contador} 
+         <button onClick={this.aumentar}>+</button></div>
+      </div>  
     )
   }
-}
-
-class Social extends Component {
-  render() {
-    return (
-      <>
-        <ul>
-          <li><a href={this.props.github} target="_blank">Github</a></li>
-        </ul>
-      </>
-    )
-  }
-}
-
-function App() {
-  return (
-    <div>
-      <h1>Conheça nossa equipe</h1>
-      <Equipe nome="Diego" cargo="Programador" idade="18" github="https://github.com/diegojacober" />
-    </div>
-  )
 }
 
 
