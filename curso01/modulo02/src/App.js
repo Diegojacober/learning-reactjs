@@ -46,15 +46,19 @@ class App extends Component{
         {id: 2, username: "Ângelo", curtidas:5, comentarios:4},
         {id: 2, username: "Cadu", curtidas:0, comentarios:4}
       ],
+      nome: '',
       email: '',
       password: '',
-      sexo: ''
+      sexo: '',
+      error: ''
     }
 
     this.entrar = this.entrar.bind(this)
     this.sair = this.sair.bind(this)
     this.changeEmail = this.changeEmail.bind(this)
     this.changeSexo = this.changeSexo.bind(this)
+    this.changeNome = this.changeNome.bind(this)
+    this.cadastrar = this.cadastrar.bind(this)
   }
 
   entrar() {
@@ -129,31 +133,80 @@ class App extends Component{
   }
 
   //formulário
+  // render() {
+  //   return(
+  //     <>
+  //       <h2>Login</h2>
+  //       <label for="email">Email:</label>
+  //       <input type="email" name="email" value={this.state.email}
+  //         onChange={this.changeEmail}/>
+  //       <br/>
+  //       <label for="password">Password:</label>
+  //       <input type="password" name="password" value={this.state.password}
+  //       onChange={(e) => {this.setState({password: e.target.value})}}/>
+  //       <br/>
+  //       Sexo:
+  //       <select name="sexo" value={this.state.sexo} onChange={this.changeSexo}>
+  //         <option value="masculino">Masculino</option>
+  //         <option value="feminino">Feminino</option>
+  //       </select>
+  //     <div>
+  //       <h3>{this.state.email}</h3>
+  //       <h3>{this.state.password}</h3>
+  //       <h3>{this.state.sexo}</h3>
+  //     </div>
+  //     </>
+
+      
+  //   )
+  // }
+
+  changeNome(e) {
+    let caracter = e.target.value
+  
+    if (! isNaN(caracter)) {
+      alert('Você não pode digitar números no nome')
+    } else {
+      this.setState({nome: caracter})
+      
+    }
+  }
+
+  cadastrar(e) {
+    e.preventDefault()
+    const {nome, email, senha, sexo} = this.state
+
+   if (nome !== '' && email !== '' && senha !== '' && sexo !== '') {
+    alert('Usuário cadastrado com sucesso')
+    this.setState({error: ''})
+   } else {
+    this.setState({error: 'Não foi possivel cadastrar'})
+   }
+    
+  }
+
   render() {
     return(
       <>
-        <h2>Login</h2>
-        <label for="email">Email:</label>
-        <input type="email" name="email" value={this.state.email}
-          onChange={this.changeEmail}/>
-        <br/>
-        <label for="password">Password:</label>
-        <input type="password" name="password" value={this.state.password}
-        onChange={(e) => {this.setState({password: e.target.value})}}/>
-        <br/>
-        Sexo:
-        <select name="sexo" value={this.state.sexo} onChange={this.changeSexo}>
-          <option value="masculino">Masculino</option>
-          <option value="feminino">Feminino</option>
-        </select>
-      <div>
-        <h3>{this.state.email}</h3>
-        <h3>{this.state.password}</h3>
-        <h3>{this.state.sexo}</h3>
-      </div>
-      </>
+        <h1>Novo usuário</h1>
+          {this.state.error && <p>{this.state.error}</p>}
+        <form onSubmit={this.cadastrar}>
+          <input type="text" placeholder="Digite o nome do usuário" value={this.state.nome} onChange={this.changeNome}/>
+          <br/>
+          <input type="email" placeholder="Digite o email do usuário" value={this.state.email} onChange={this.changeEmail}/>
+          <br/>
+          <input type="password" placeholder="Digite a senha do usuário" value={this.state.password} onChange={(e) => {this.setState({password: e.target.value})}}/>
+          <br/>
+          Sexo:
+          <select name="sexo" value={this.state.sexo} onChange={this.changeSexo}>
+            <option value="masculino">Masculino</option>
+            <option value="feminino">Feminino</option>
+          </select>
 
-      
+          <br/><br/>
+          <button type="submit">Cadastrar</button>
+        </form>
+      </>
     )
   }
 }
