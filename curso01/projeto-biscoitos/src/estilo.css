@@ -1,0 +1,33 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.img{
+    width: 300px;
+    height: 300px;
+    margin-top: 50px;
+}
+
+.textoFrase{
+    font-style: italic;
+    color: #dd7b22;
+    text-align: center;
+}
+
+.btn{
+    background-color: cadetblue;
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    font-weight: bold;
+    transition: all ease-in 0.5s;
+}
+
+.bnt:hover{
+    color: #fff;
+    transition: all ease-in 0.5s;
+}
