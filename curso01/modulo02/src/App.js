@@ -46,10 +46,12 @@ class App extends Component{
         {id: 2, username: "Ângelo", curtidas:5, comentarios:4},
         {id: 2, username: "Cadu", curtidas:0, comentarios:4}
       ],
-      nome: '',
-      email: '',
-      password: '',
-      sexo: '',
+      form: {
+        nome: '',
+        email: '',
+        password: '',
+        sexo: '',
+      },
       error: ''
     }
 
@@ -59,6 +61,7 @@ class App extends Component{
     this.changeSexo = this.changeSexo.bind(this)
     this.changeNome = this.changeNome.bind(this)
     this.cadastrar = this.cadastrar.bind(this)
+    this.changeData = this.changeData.bind(this)
   }
 
   entrar() {
@@ -172,9 +175,16 @@ class App extends Component{
     }
   }
 
+  changeData(e) {
+    let form = this.state.form
+
+    form[e.target.name] = e.target.value
+    this.setState({form: form})
+  }
+
   cadastrar(e) {
     e.preventDefault()
-    const {nome, email, senha, sexo} = this.state
+    const {nome, email, senha, sexo} = this.state.form
 
    if (nome !== '' && email !== '' && senha !== '' && sexo !== '') {
     alert('Usuário cadastrado com sucesso')
@@ -191,14 +201,14 @@ class App extends Component{
         <h1>Novo usuário</h1>
           {this.state.error && <p>{this.state.error}</p>}
         <form onSubmit={this.cadastrar}>
-          <input type="text" placeholder="Digite o nome do usuário" value={this.state.nome} onChange={this.changeNome}/>
+          <input type="text" name="nome" placeholder="Digite o nome do usuário" value={this.state.form.nome} onChange={this.changeData}/>
           <br/>
-          <input type="email" placeholder="Digite o email do usuário" value={this.state.email} onChange={this.changeEmail}/>
+          <input type="email" name="email" placeholder="Digite o email do usuário" value={this.state.form.email} onChange={this.changeData}/>
           <br/>
-          <input type="password" placeholder="Digite a senha do usuário" value={this.state.password} onChange={(e) => {this.setState({password: e.target.value})}}/>
+          <input type="password" name="senha" placeholder="Digite a senha do usuário" value={this.state.form.password} onChange={this.changeData}/>
           <br/>
           Sexo:
-          <select name="sexo" value={this.state.sexo} onChange={this.changeSexo}>
+          <select name="sexo" value={this.state.form.sexo} onChange={this.changeData}>
             <option value="masculino">Masculino</option>
             <option value="feminino">Feminino</option>
           </select>
