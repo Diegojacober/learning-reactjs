@@ -1,0 +1,5 @@
+componentDidMount -> roda apenas uma unica vez, quando o componente é montado
+
+componentDidUpdate -> toda vez que o componente é atualizado
+
+shouldComponentUpdate -> se quer que o componente atualiza ou nao
