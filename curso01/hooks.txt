@@ -1,0 +1,3 @@
+O hooks só surgiu na versão 16.8
+
+o hooks é uma api para reduzir a verbosidade do código, modificar estados e ciclos de vida
