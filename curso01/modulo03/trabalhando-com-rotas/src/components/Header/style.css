@@ -1,0 +1,28 @@
+header{
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    background-color: #121212;
+    color: #FFF;
+}
+
+.logo--image{
+    width: 80px;
+    height: 80px;
+}
+
+.options{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+
+a{
+    text-decoration: none;
+    color: #FFF;
+}
