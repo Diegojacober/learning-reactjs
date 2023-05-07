@@ -1,8 +1,13 @@
+import { Link } from "react-router-dom"
+import './404.css'
+
 function Erro() {
     return(
-        <div>
+        <div className="erro">
         
-            <h1>404 - Verifique o link, você caiu em uma página não encontrada</h1>
+            <h1>404</h1>
+            <h3>Página não encontrada</h3>
+            <Link to="/"> Veja todos os filmes</Link>
 
         </div>
     )

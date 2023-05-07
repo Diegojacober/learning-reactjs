@@ -8,6 +8,7 @@ import './home.css'
 function Home() {
 
     const [filmes, setFilmes] = useState([])
+    const [loading, setLoading] = useState(true)
 
     // roda quando a aplicação inicia
     useEffect(() => {
@@ -23,26 +24,37 @@ function Home() {
 
             //pega os 10 primeiros filmes
             setFilmes(response.data.results.slice(0,10))
+            setLoading(false)
         }
 
         loadFilmes()
     }, [])
 
-    return(
-        <div className="container">
-            <div className="filmes">
-                {filmes.map((filme) => {
-                    return(
-                        <article key={filme.id}>
-                            <strong>{filme.title}</strong>
-                            <img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
-                            <Link to={`/filme/${filme.id}`}>Acessar</Link>
-                        </article>
-                    )
-                })}
+    if(loading) {
+        return(
+            <div className="loading">
+                <h1>Carregando filmes...</h1>
             </div>
-        </div>
-    )
+        )
+    } else {
+        return(
+            <div className="container">
+                <div className="filmes">
+                    {filmes.map((filme) => {
+                        return(
+                            <article key={filme.id}>
+                                <strong>{filme.title}</strong>
+                                <img src={`https://image.tmdb.org/t/p/original/${filme.poster_path}`} alt={filme.title}/>
+                                <Link to={`/filme/${filme.id}`}>Acessar</Link>
+                            </article>
+                        )
+                    })}
+                </div>
+            </div>
+        )
+    }
+
+    
 }
 
 export default Home
