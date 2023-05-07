@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate, json } from 'react-router-dom'
 import api from '../../services/api';
 import './filme.css'
+import { toast } from 'react-toastify';
 
 function Filme(){
   const { id } = useParams();
@@ -21,10 +22,29 @@ function Filme(){
 
         filmesSalvos.push(filme)
         localStorage.setItem("@primeflix", JSON.stringify(filmesSalvos))
-        alert('filme salvo com sucesso')
+        
+        toast.success('Filme salvo com sucesso', {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
 
     } else {
-        alert("Esse filme ja foi adicionado")
+        toast.warn('Esse filme ja está adicionado em sua lista', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "dark",
+            });
         return
     }
   }
