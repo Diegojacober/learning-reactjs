@@ -1,13 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { db } from './firebaseConnection'
-import { doc, setDoc, collection, addDoc, getDoc } from 'firebase/firestore';
+import { doc, setDoc, collection, addDoc, getDoc, getDocs } from 'firebase/firestore';
 import './app.css'
 
 function App() {
 
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
-
+  const [posts, setPosts] = useState([])
 
   async function handleAdd() {
 
@@ -26,30 +26,55 @@ function App() {
       title: title,
       author: author,
     })
-    .then((e) => {
-      setTitle('')
-      setAuthor('')
-      console.log('foi')
-        
-    })
-    .catch((e) => {
-      console.log('erro: ' + e)
-    })
+      .then((e) => {
+        setTitle('')
+        setAuthor('')
+        console.log('foi')
+
+      })
+      .catch((e) => {
+        console.log('erro: ' + e)
+      })
 
   }
 
   async function searchPost() {
-    const postRef = doc(db, "posts", "1234")
+    const postRef = doc(db, "posts", "ETFYlFjDp4ENKgyYAb0k")
 
     await getDoc(postRef)
-    .then((snapshot) => {
-      setAuthor(snapshot.data().author)
-      setTitle(snapshot.data().title)
-    })
-    .catch((error) => {
-      alert(error)
-    })
+      .then((snapshot) => {
+        setAuthor(snapshot.data().author)
+        setTitle(snapshot.data().title)
+      })
+      .catch((error) => {
+        alert(error)
+      })
   }
+
+  async function getAllPosts() {
+    const collectionRef = collection(db, "posts")
+
+    await getDocs(collectionRef)
+      .then((snapshot) => {
+        let lista = []
+        snapshot.forEach((post) => {
+          lista.push({
+            id: post.id,
+            title: post.data().title,
+            author: post.data().author,
+          })
+        })
+
+        setPosts(lista)
+      })
+      .catch((error) => {
+        alert(error)
+      })
+  }
+
+  useEffect(() => {
+    getAllPosts()
+  }, [])
 
   return (
     <div>
@@ -66,6 +91,15 @@ function App() {
 
         <button onClick={handleAdd}>Adiconar</button>
         <button onClick={searchPost}>Buscar post</button>
+
+        <div className='posts'>
+
+          {posts.map((post) => {
+            return (
+              <p key={post.id}>{post.title} --- <small>{post.author}</small></p>
+            )
+          })}
+        </div>
       </div>
 
     </div>
