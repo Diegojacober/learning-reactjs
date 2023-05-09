@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { db } from './firebaseConnection'
+import { auth, db } from './firebaseConnection'
 import { doc,
    setDoc,
     collection, 
@@ -9,6 +9,8 @@ import { doc,
        updateDoc, 
        deleteDoc, 
        onSnapshot} from 'firebase/firestore';
+
+import { createUserWithEmailAndPassword } from 'firebase/auth'
 import './app.css'
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
   const [author, setAuthor] = useState('')
   const [posts, setPosts] = useState([])
   const [idPost, setIdPost] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPass] = useState('')
 
  
   
@@ -113,6 +117,23 @@ function App() {
     })
   }
 
+  async function newUser() {
+    await createUserWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      alert('usuário cadastrado com sucesso!!');
+      setEmail('')
+      setPass('')
+    })
+    .catch((e) => {
+      console.log(e)
+      if(e.code == 'auth/weak-password') {
+        alert('senha muito fraca')
+      } else if (e.code == 'auth/email-already-in-use') {
+        alert("Email já cadastrado")
+      }
+    })
+  }
+
   useEffect(() => {
     async function loadPosts(){
       const unsub = onSnapshot(collection(db, "posts"), (snapshot) => {
@@ -137,8 +158,23 @@ function App() {
   
   return (
     <div>
-      <h1>{title}</h1>
-      <h1>{author}</h1>
+      <h2>Usuários</h2>
+
+      <div className='container'>
+        <label>Email:</label>
+        <input type='email' value={email} onChange={(e) => setEmail(e.target.value) }/>
+
+        <label>Senha:</label>
+        <input type='password' value={password} onChange={(e) => setPass(e.target.value) }/>
+
+
+        <button onClick={newUser}>Cadastrar</button>
+      </div>
+      
+      <br/><br/>
+      <h2>Posts</h2>
+      <h3>{title}</h3>
+      <h3>{author}</h3>
 
       <div className='container'>
 
@@ -156,7 +192,6 @@ function App() {
         <button onClick={searchPost}>Buscar post</button>
         <hr/>
         <button onClick={editPost}>Editar post</button>
-
 
         <div className='posts'>
 
