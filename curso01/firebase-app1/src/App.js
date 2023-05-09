@@ -10,7 +10,7 @@ import { doc,
        deleteDoc, 
        onSnapshot} from 'firebase/firestore';
 
-import { createUserWithEmailAndPassword } from 'firebase/auth'
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import './app.css'
 
 function App() {
@@ -21,6 +21,8 @@ function App() {
   const [idPost, setIdPost] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPass] = useState('')
+  const [user, setUser] = useState(false)
+  const [userDetail, setUserDetail] = useState([])
 
  
   
@@ -134,6 +136,34 @@ function App() {
     })
   }
 
+  async function logout() {
+    await signOut(auth)
+    .then(() => {
+      alert('deslogado')
+      setUserDetail([])
+      setUser(false)
+    })
+  }
+
+  async function login() {
+    signInWithEmailAndPassword(auth, email, password)
+    .then((value) => {
+      alert('usuario logado com sucesso')
+
+      console.log(value.user)
+      setUserDetail({
+        id: value.user.id,
+        email: value.user.email
+      })
+      setUser(true)
+      setEmail('')
+      setPass('')
+    })
+    .catch((error) => {
+      alert('erro ao logar')
+    })
+  }
+
   useEffect(() => {
     async function loadPosts(){
       const unsub = onSnapshot(collection(db, "posts"), (snapshot) => {
@@ -160,6 +190,16 @@ function App() {
     <div>
       <h2>Usuários</h2>
 
+      {user && (
+        <div>
+          <strong>Seja bem vindo(a) você está logado(a)</strong>
+          <br/>
+          <span> ID: {userDetail.id} - {userDetail.email}</span>
+          <br/>
+          <button onClick={logout}>Sair</button>
+        </div>
+      )}
+
       <div className='container'>
         <label>Email:</label>
         <input type='email' value={email} onChange={(e) => setEmail(e.target.value) }/>
@@ -169,6 +209,7 @@ function App() {
 
 
         <button onClick={newUser}>Cadastrar</button>
+        <button onClick={login}>Fazer login</button>
       </div>
       
       <br/><br/>
