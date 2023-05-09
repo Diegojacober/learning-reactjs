@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react';
 import { db } from './firebaseConnection'
-import { doc, setDoc, collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
+import { doc,
+   setDoc,
+    collection, 
+    addDoc,
+     getDoc,
+      getDocs,
+       updateDoc, 
+       deleteDoc, 
+       onSnapshot} from 'firebase/firestore';
 import './app.css'
 
 function App() {
@@ -9,6 +17,9 @@ function App() {
   const [author, setAuthor] = useState('')
   const [posts, setPosts] = useState([])
   const [idPost, setIdPost] = useState('')
+
+ 
+  
 
   async function handleAdd() {
 
@@ -103,9 +114,27 @@ function App() {
   }
 
   useEffect(() => {
-    getAllPosts()
+    async function loadPosts(){
+      const unsub = onSnapshot(collection(db, "posts"), (snapshot) => {
+        let listaPost = [];
+
+        snapshot.forEach((doc) => {
+          listaPost.push({
+            id: doc.id,
+            author: doc.data().author,
+            title: doc.data().title,
+          })
+        })
+  
+        setPosts(listaPost);
+      })
+    }
+
+    loadPosts();
+
   }, [])
 
+  
   return (
     <div>
       <h1>{title}</h1>
