@@ -10,7 +10,7 @@ import { doc,
        deleteDoc, 
        onSnapshot} from 'firebase/firestore';
 
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth'
 import './app.css'
 
 function App() {
@@ -183,6 +183,25 @@ function App() {
 
     loadPosts();
 
+  }, [])
+
+  useEffect(() => {
+    async function checkLogin() {
+      onAuthStateChanged(auth, (user) => {
+        if(user) {
+            setUser(true)
+            setUserDetail({
+              id: user.id,
+              email:user.email
+            })
+        } else {
+          setUser(false)
+          setUserDetail({})
+        }
+      })
+    }
+
+    checkLogin()
   }, [])
 
   
