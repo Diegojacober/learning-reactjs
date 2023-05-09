@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { db } from './firebaseConnection'
-import { doc, setDoc, collection, addDoc, getDoc, getDocs } from 'firebase/firestore';
+import { doc, setDoc, collection, addDoc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
 import './app.css'
 
 function App() {
@@ -8,6 +8,7 @@ function App() {
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
   const [posts, setPosts] = useState([])
+  const [idPost, setIdPost] = useState('')
 
   async function handleAdd() {
 
@@ -72,6 +73,23 @@ function App() {
       })
   }
 
+  async function editPost() {
+    if (idPost == '' || title == '' || author == '') {
+        alert("preencha os campos")
+    } else {
+      const docRef = doc(db, "posts", idPost.trim())
+      await updateDoc(docRef, {
+          title: title,
+          author: author
+      }).then(() => {
+        alert('atualizado com sucesso')
+        setIdPost('')
+        setTitle('')
+        setAuthor('')
+      })
+    }
+  }
+
   useEffect(() => {
     getAllPosts()
   }, [])
@@ -82,6 +100,10 @@ function App() {
       <h1>{author}</h1>
 
       <div className='container'>
+
+        <label>Id do Post:</label>
+        <textarea type='text' placeholder='Digite o id do post'  onChange={(e) => { setIdPost(e.target.value) }} />
+
         <label>Title:</label>
         <textarea type='text' placeholder='Digite o título' value={title} onChange={(e) => { setTitle(e.target.value) }} />
 
@@ -91,12 +113,15 @@ function App() {
 
         <button onClick={handleAdd}>Adiconar</button>
         <button onClick={searchPost}>Buscar post</button>
+        <hr/>
+        <button onClick={editPost}>Editar post</button>
+
 
         <div className='posts'>
 
           {posts.map((post) => {
             return (
-              <p key={post.id}>{post.title} --- <small>{post.author}</small></p>
+              <p key={post.id}><strong>{post.id}</strong> {post.title} --- <small>{post.author}</small></p>
             )
           })}
         </div>
