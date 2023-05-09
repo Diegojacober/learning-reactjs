@@ -1,0 +1,16 @@
+.container{
+    display: flex;
+   
+    width: 600px;
+    flex-direction: column;
+}
+
+button{
+    margin-top: 15px;
+}
+
+.posts{
+    border: 1px solid red;
+    margin-top: 15px;
+    padding: 1em;
+}
