@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { db } from './firebaseConnection'
-import { doc, setDoc, collection, addDoc, getDoc, getDocs, updateDoc } from 'firebase/firestore';
+import { doc, setDoc, collection, addDoc, getDoc, getDocs, updateDoc, deleteDoc } from 'firebase/firestore';
 import './app.css'
 
 function App() {
@@ -90,6 +90,18 @@ function App() {
     }
   }
 
+  async function excluirPost(id) {
+    const docRef = doc(db, "posts", id)
+
+    await deleteDoc(docRef)
+    .then(() => {
+      alert("Post deletado com sucesso")
+    })
+    .catch((erro) => {
+      console.log(erro)
+    })
+  }
+
   useEffect(() => {
     getAllPosts()
   }, [])
@@ -119,11 +131,19 @@ function App() {
 
         <div className='posts'>
 
+        <ul>
           {posts.map((post) => {
             return (
-              <p key={post.id}><strong>{post.id}</strong> {post.title} --- <small>{post.author}</small></p>
+              <li key={post.id}>
+                <small><strong>{post.id}</strong></small><
+                  br/>
+                <span>{post.title}</span> -- <span>{post.author}</span>
+                <button onClick={() => excluirPost(post.id)}>Excluir</button><br/> <br/>
+              </li>
+             
             )
           })}
+        </ul>
         </div>
       </div>
 
