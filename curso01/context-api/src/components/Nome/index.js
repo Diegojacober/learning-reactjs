@@ -1,9 +1,14 @@
-function Nome(props) {
+import { useContext } from "react";
+import { UserContext } from "../../contexts/user";
+
+function Nome() {
+    const { alunos, setAlunos } = useContext(UserContext)
+    
     return (
       <div>
-        <span style={{color: '#F00'}}>Bem vindo: {props.nome}</span>
+        <span style={{color: '#F00'}}>Bem vindo: {alunos}</span>
         <br/>
-        <button onClick={() => props.mudaNome('Diego')}>Trocar nome</button>
+        <button onClick={() => setAlunos('Diego Alencar')}>Trocar nome</button>
       </div>
     );
   }
