@@ -24,6 +24,27 @@ export default class Main extends Component {
         index: -1,
     }
 
+    // Quando o componente é montado chama essa função
+    componentDidMount() {
+        const tarefas = JSON.parse(localStorage.getItem('tarefas'))
+
+        if (!tarefas) return
+
+        this.setState({
+            tarefas
+        })
+    }
+
+    // A cada vez que o componente for atualizado essa função é chamada
+    componentDidUpdate(prevProps, prevState) {
+        //Props anteriores e States anteriores
+        const { tarefas } = this.state
+
+        if (tarefas === prevState.tarefas) return
+
+        localStorage.setItem('tarefas', JSON.stringify(tarefas))
+    }
+
     handleInput = (text) => {
         this.setState({
             novaTarefa: text
@@ -53,8 +74,6 @@ export default class Main extends Component {
                 index: -1
             })
         }
-
-        
     }
 
     handleDelete = (e, index) => {
