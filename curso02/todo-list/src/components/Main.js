@@ -1,9 +1,8 @@
 import React, { Component } from "react";
+
+import Form from "./Form";
 import './Main.css'
-
-import { FaPlus } from 'react-icons/fa'
-
-import { FaEdit, FaWindowClose } from 'react-icons/fa'
+import Tarefas from "./Tarefas";
 
 //Components statefull precisam do metodo render
 export default class Main extends Component {
@@ -53,19 +52,19 @@ export default class Main extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault()
- 
+
         const { tarefas, index } = this.state
         let { novaTarefa } = this.state
         novaTarefa = novaTarefa.trim()
-        
-        if(tarefas.indexOf(novaTarefa) !== -1) return;
-        
-        if(index === -1) {
+
+        if (tarefas.indexOf(novaTarefa) !== -1) return;
+
+        if (index === -1) {
             this.setState({
                 tarefas: [...tarefas, novaTarefa],
                 novaTarefa: ''
             })
-        } else{
+        } else {
             const novasTarefas = [...tarefas]
             novasTarefas[index] = novaTarefa
 
@@ -102,22 +101,9 @@ export default class Main extends Component {
             <div className="main">
                 <h1>Lista de Tarefas</h1>
 
-                <form action="#" className="form" onSubmit={this.handleSubmit}>
-                    <input type="text" value={novaTarefa} onChange={(e) => this.handleInput(e.target.value)} />
+                <Form handleSubmit={this.handleSubmit} handleInput={this.handleInput} novaTarefa={this.state.novaTarefa} />
 
-                    <button type="submit"><FaPlus size={14}/></button>
-                </form>
-
-                <ul className="tarefas">
-                    {tarefas.map((tarefa, index) => (
-                        <li key={tarefa}>{tarefa}
-                            <span>
-                                <FaEdit onClick={e => this.handleEdit(e, index)} className="edit"/>
-                                <FaWindowClose onClick={e => this.handleDelete(e, index)} className="delete"/>
-                            </span>
-                        </li>
-                    ))}
-                </ul>
+                <Tarefas tarefas={tarefas} handleEdit={this.handleEdit} handleDelete={this.handleDelete} />
 
             </div>
         )
