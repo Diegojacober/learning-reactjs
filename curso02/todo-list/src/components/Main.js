@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import './Main.css'
 
+import { FaPlus } from 'react-icons/fa'
+
 //Components statefull precisam do metodo render
 export default class Main extends Component {
 
@@ -33,10 +35,10 @@ export default class Main extends Component {
             <div className="main">
                 <h1>Lista de Tarefas</h1>
 
-                <form action="#">
-                    <input type="text" onChange={(e) => this.handleInput(e.target.value)} />
+                <form action="#" className="form">
+                    <input type="text" value={novaTarefa} onChange={(e) => this.handleInput(e.target.value)} />
 
-                    <button type="submit">Enviar</button>
+                    <button type="submit"><FaPlus size={14}/></button>
                 </form>
             </div>
         )
