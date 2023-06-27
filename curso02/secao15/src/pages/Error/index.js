@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Title } from './styled'
 import { Container } from "../../styles/GlobalStyles";
 import { Link } from "react-router-dom";
