@@ -8,7 +8,7 @@ import { useSelector } from "react-redux/es/hooks/useSelector";
 
 export default function Header() {
 
-    const botaoClicado = useSelector(state => state.botaoClicado)
+    const botaoClicado = useSelector(state => state.example.botaoClicado)
 
     return(
         <Nav>
