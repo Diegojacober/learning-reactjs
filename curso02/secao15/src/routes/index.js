@@ -11,8 +11,8 @@ function RoutesApp() {
     return(
         <BrowserRouter>
         <Switch>
-            <Route exact path='/' component={ Login }/>
-            <MyRoute exact  path='/home' component={ Home } isClosed/>
+            <MyRoute exact path='/login' component={ Login }/>
+            <MyRoute exact  path='/' component={ Home } isClosed/>
 
             <Route path='*' component={ Error }/>
 
