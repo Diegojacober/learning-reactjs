@@ -13,7 +13,7 @@ export default function Login() {
     function handleClick(e) {
         e.preventDefault();
         
-        dispatch(exampleActions.btnClick());
+        dispatch(exampleActions.btnClickRequest());
     }
 
     return (
