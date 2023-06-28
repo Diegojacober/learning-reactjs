@@ -1,5 +1,5 @@
 import styled, { createGlobalStyle } from 'styled-components';
-import { primaryColor, primaryDarkColor, errorColor, successColor } from '../config/colors'
+import { primaryColor, primaryDarkColor } from '../config/colors'
 import 'react-toastify/dist/ReactToastify.css';
 
 export default createGlobalStyle`
