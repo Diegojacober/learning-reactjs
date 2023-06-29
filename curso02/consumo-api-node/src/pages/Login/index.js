@@ -1,11 +1,12 @@
-import React from "react";
-import { Title } from './styled'
+import React, { useEffect, useState } from "react";
 import { Container } from "../../styles/GlobalStyles";
-import { useDispatch } from "react-redux";
-
-import * as exampleActions from "../../store/modules/example/actions"
+import axios from '../../services/axios';
 
 export default function Login() {
+
+    const [password, setPassword] = useState('');
+    const [email, setEmail] = useState('');
+
     return (
         <Container>
             <h1>Login</h1>

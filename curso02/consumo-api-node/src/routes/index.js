@@ -15,7 +15,7 @@ function RoutesApp() {
     return(
         <BrowserRouter>
         <Switch>
-            <MyRoute exact  path='/alunos' component={ Alunos } isClosed/>
+            <MyRoute exact  path='/alunos' component={ Alunos } isClosed={false}/>
             <MyRoute exact  path='/aluno/:id/edit' component={ Aluno } isClosed/>
             <MyRoute exact  path='/aluno' component={ Aluno } isClosed/>
             <MyRoute exact  path='/picture/:id' component={ Pictures } isClosed/>
