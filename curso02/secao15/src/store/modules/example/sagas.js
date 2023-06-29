@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 const req = () => new Promise((resolve, reject) => {
     setTimeout(() => {
         resolve();
-    }, 2000);
+    }, 600);
 });
 
 function* exampleRequest() {
