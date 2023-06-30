@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import isEmail from "validator/lib/isEmail";
 import axios from '../../services/axios';
 import history from '../../services/history';
-import { History } from "history";
 
 import * as exampleActions from "../../store/modules/example/actions"
 import { toast } from "react-toastify";

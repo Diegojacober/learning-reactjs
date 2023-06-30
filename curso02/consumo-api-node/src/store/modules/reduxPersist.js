@@ -5,10 +5,9 @@ import { persistReducer } from 'redux-persist';
 export default (reducers) => {
     const persistedReducers = persistReducer(
         {
-            key: 'NOME-DA-APLICACAO',
+            key: 'CONSUMO-API',
             storage,
-            // módulos que deseja salvar
-            whitelist: ['example']
+            whitelist: ['auth']
         },reducers);
 
     return persistedReducers;
