@@ -16,7 +16,7 @@ export default function Aluno(props) {
             <div>
                 <ProfilePicture>
                     {get(props.aluno, 'Files[0].url_image', '') ? (
-                        <img crossorigin="anonymous" src={props.aluno.Files[0].url_image} alt={props.aluno.Files[0].filename} />
+                        <img crossOrigin="anonymous" src={props.aluno.Files[0].url_image} alt={props.aluno.Files[0].filename} />
                     ) : (
                         <FaUserCircle size={36} />
                     )}

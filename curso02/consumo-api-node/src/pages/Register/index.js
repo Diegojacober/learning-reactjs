@@ -9,15 +9,19 @@ import history from '../../services/history';
 import * as exampleActions from "../../store/modules/example/actions"
 import { toast } from "react-toastify";
 import { get } from "lodash";
+import Loading from "../../components/Loading";
 
 export default function Register() {
 
     const [nome, setNome] = useState('');
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        setIsLoading(true);
         var formErrors = false;
 
         if (nome.length < 3 || password.length > 255) {
@@ -35,12 +39,15 @@ export default function Register() {
             toast.error('A senha deve ter entre 6 e 50 caracteres');
         }
 
+        if (formErrors) return;
+
         try {
             await axios.post('/users', {
                 nome, password, email,
             })
 
             toast.success('Cadastro feito com sucesso');
+            setIsLoading(false);
             history.push('/login');
             history.go(0);
         } catch (e) {
@@ -48,13 +55,14 @@ export default function Register() {
             const erros = get(e, 'response.data.errors', [])
 
             erros.map((error) => toast.error(error))
+            setIsLoading(false);
         }
-
 
     }
 
     return (
         <Container>
+            <Loading isLoading={isLoading} />
             <h1>Crie sua conta</h1>
 
             <Form onSubmit={handleSubmit}>
